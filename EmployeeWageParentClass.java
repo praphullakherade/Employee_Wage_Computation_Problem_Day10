@@ -3,34 +3,26 @@ package com.employeewage;
 import java.util.Random;
 
 public class EmployeeWageParentClass {
-
-    //Constant variable
-    protected static final int IS_FULL_TIME = 1;
-    protected static final int IS_PART_TIME = 2;
-
-    //variable
-    protected int randomCheck;
-    protected int EMP_HRS;
-    protected int TOTAL_EMP_HRS = 0;
-    protected int TOTAL_WORKING_DAYS = 0;
-    protected int TOTAL_SALARY =0;
+    protected String company;
+    protected int WAGE_PER_HR;
+    protected int MAX_WORKING_DAYS;
+    protected int MAX_HRS_IN_MONTH;
+    protected int TOTAL_SALARY;
 
 
 
-    //generating random number
-    protected void getRandomNumber() {
-        Random num = new Random();
-        randomCheck = num.nextInt(2) + 1;
+    public EmployeeWageParentClass(String company, int WAGE_PER_HR, int MAX_WORKING_DAYS, int MAX_HRS_IN_MONTH){
+        this.company=company;
+        this.WAGE_PER_HR=WAGE_PER_HR;
+        this.MAX_WORKING_DAYS=MAX_WORKING_DAYS;
+        this.MAX_HRS_IN_MONTH=MAX_HRS_IN_MONTH;
+    }
+    public void setTotalEmpWage(int TOTAL_SALARY){
+        this.TOTAL_SALARY=TOTAL_SALARY;
     }
 
-    //Calculating employee hours using switch case statement
-    protected void employeeWageUsingSwitch(int randomCheck) {
-        switch (randomCheck) {
-            case IS_FULL_TIME -> EMP_HRS = 8;
-            case IS_PART_TIME -> EMP_HRS = 4;
-            default -> EMP_HRS = 0;
-        }
-        TOTAL_EMP_HRS = TOTAL_EMP_HRS + EMP_HRS;
-
+    @Override
+    public String toString() {
+        return "Total Employee wage for company "+company+" is : "+TOTAL_SALARY;
     }
 }

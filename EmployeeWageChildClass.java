@@ -1,33 +1,48 @@
 package com.employeewage;
 
-public class EmployeeWageChildClass extends EmployeeWageParentClass {
+import java.util.Random;
 
-    protected final String company;
-    protected final int WAGE_PER_HR;
-    protected final int MAX_WORKING_DAYS;
-    protected final int MAX_HRS_IN_MONTH;
+public class EmployeeWageChildClass {
 
-    public EmployeeWageChildClass(String company, int WAGE_PER_HR, int MAX_WORKING_DAYS, int MAX_HRS_IN_MONTH){
-        this.company=company;
-        this.WAGE_PER_HR=WAGE_PER_HR;
-        this.MAX_WORKING_DAYS=MAX_WORKING_DAYS;
-        this.MAX_HRS_IN_MONTH=MAX_HRS_IN_MONTH;
+
+    //Constant variable
+    protected static final int IS_FULL_TIME = 1;
+    protected static final int IS_PART_TIME = 2;
+
+    protected int numOfCompany = 0;
+    protected EmployeeWageParentClass[] employeeWageParentClasses;
+
+    public EmployeeWageChildClass(){
+        employeeWageParentClasses= new EmployeeWageParentClass[5];
     }
 
-    //calculating Wages For Working Hour And Days
-    protected int wagesForWorkingHourAndDays(){
+    public void addEmpWage(String company, int WAGE_PER_HR, int MAX_WORKING_DAYS, int MAX_HRS_IN_MONTH) {
+        employeeWageParentClasses[numOfCompany] = new EmployeeWageParentClass(company, WAGE_PER_HR, MAX_WORKING_DAYS, MAX_HRS_IN_MONTH);
+        numOfCompany++;
+    }
 
-        while (TOTAL_WORKING_DAYS < MAX_WORKING_DAYS && TOTAL_EMP_HRS < MAX_HRS_IN_MONTH){
-            getRandomNumber();
-            employeeWageUsingSwitch(randomCheck);
+    public void wagesForWorkingHourAndDays() {
+        for (int i = 0; i < numOfCompany; i++) {
+            employeeWageParentClasses[i].setTotalEmpWage(this.wagesForWorkingHourAndDays(employeeWageParentClasses[i]));
+            System.out.println(employeeWageParentClasses[i]);
+        }
+    }
+
+    protected int wagesForWorkingHourAndDays(EmployeeWageParentClass employeeWageParentClass) {
+        int EMP_HRS, TOTAL_WORKING_DAYS = 0, TOTAL_EMP_HRS = 0, TOTAL_SALARY = 0;
+
+        while (TOTAL_WORKING_DAYS < employeeWageParentClass.MAX_WORKING_DAYS && TOTAL_EMP_HRS < employeeWageParentClass.MAX_HRS_IN_MONTH) {
+            Random num = new Random();
+            int randomCheck = num.nextInt(2) + 1;
+            switch (randomCheck) {
+                case IS_FULL_TIME -> EMP_HRS = 8;
+                case IS_PART_TIME -> EMP_HRS = 4;
+                default -> EMP_HRS = 0;
+            }
+            TOTAL_EMP_HRS = TOTAL_EMP_HRS + EMP_HRS;
             TOTAL_WORKING_DAYS++;
         }
-        TOTAL_SALARY = WAGE_PER_HR * TOTAL_EMP_HRS;
+        TOTAL_SALARY = employeeWageParentClass.WAGE_PER_HR * TOTAL_EMP_HRS;
         return TOTAL_SALARY;
     }
-    @Override
-    public String toString(){
-        return "Total Employee wage for company "+company+" is : "+TOTAL_SALARY;
-    }
-
 }
