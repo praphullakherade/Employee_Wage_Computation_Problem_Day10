@@ -2,8 +2,7 @@ package com.employeewage;
 
 import java.util.Random;
 
-public class EmployeeWageChildClass {
-
+public class EmployeeWageChildClass implements Interface {
 
     //Constant variable
     protected static final int IS_FULL_TIME = 1;
