@@ -4,60 +4,47 @@ import java.util.Random;
 
 public class EmployeeWage {
 
-    public static void main(String[] args) {
-            System.out.println("Welcome To Employee Wage Computation Program");
-            Random num = new Random ();
-            int WagePerHour = 20;
-            int MaxHrinMonth= 100;
-            int NumWorkingDays=20;
-            int Totalsalary=0;
-            int TotalEmpHr=0;
-            int TotalWorkingDay=0;
-            int salary1=0;
-            int salary2=0;
-            int salary3=0;
-            int sal2=0;
-            int sal3=0;
-            int Absent=0;
-            int Fullday=0;
-            int Halfday=0;
-            int EmpHr=8;
+    public static final int IS_PART_TIME = 1;
+    public static final int IS_FULL_TIME = 2;
+    public static final int EMP_RATE_PER_HOUR = 20;
+    public static final int MAX_WORKING_DAYS = 20;
+    public static final int MAX_WORKING_HOURS = 100;
 
-            while (TotalEmpHr < MaxHrinMonth && TotalWorkingDay < NumWorkingDays ) {
-
-                TotalWorkingDay++;
-
-                int CheckAvail= num.nextInt(3);
-
-                switch  (CheckAvail) {
-                    case 0:
-                        Absent++;
-                        salary1= 0 * WagePerHour;
-                        break;
-
-                    case 1:
-                        Fullday++;
-                        sal2= EmpHr * WagePerHour;
-                        salary2= salary2 + sal2 ;
-                        break;
-
-                    case 2:
-                        Halfday++;
-                        sal3= EmpHr * WagePerHour;
-                        salary3 = salary3 + sal3 ;
-                        break;
-
-
-                }
-                TotalEmpHr=TotalEmpHr + EmpHr ;
+    public static void empWage() {
+        int empHrs, empWage;
+        int day = 1;
+        int totalHours = 0;
+        int totalWage = 0;
+        while (day <= MAX_WORKING_DAYS && totalHours <= MAX_WORKING_HOURS) {
+            double empCheck = Math.floor(Math.random() * 10) % 3;
+            switch ((int) empCheck) {
+                case IS_FULL_TIME:
+                    System.out.println("day " + day);
+                    empHrs = 8;
+                    System.out.println("Employee present for Full Time");
+                    break;
+                case IS_PART_TIME:
+                    System.out.println("day " + day);
+                    empHrs = 4;
+                    System.out.println("Employee present for Part Time");
+                    break;
+                default:
+                    System.out.println("day " + day);
+                    empHrs = 0;
+                    System.out.println("Employee is absent");
             }
-
-            Totalsalary = salary1 + salary2 + salary3 ;
-            System.out.println( "Number of days Absent is " + Absent );
-            System.out.println( "Number of Fulldays present is  " + Fullday );
-            System.out.println( "Number of Halfdays present is " +Halfday );
-            System.out.println( "Total Number of Working days in a Month is  " + TotalWorkingDay );
-            System.out.println( "Total Employee Hour in a month  is  " + TotalEmpHr );
-            System.out.println( "The total salary of the employee is  " + Totalsalary );
+            empWage = empHrs * EMP_RATE_PER_HOUR;
+            totalHours = totalHours + empHrs;
+            totalWage = totalWage + empWage;
+            System.out.println("Emp Wage: " + empWage);
+            day++;
+        }
+        System.out.println("");
+        System.out.println("Total Working Hours in Month is " + totalHours);
+        System.out.println("Total EmployeeWage Per Month is " + totalWage);
+    }
+    public static void main(String[] args) {
+        System.out.println("Welcome to Employee Wage Compuation Problem");
+        empWage();
     }
 }
