@@ -10,7 +10,6 @@ public class EmployeeWageChildClass implements Interface{
     protected static final int IS_FULL_TIME = 1;
     protected static final int IS_PART_TIME = 2;
 
-    EmployeeWageParentClass p =new EmployeeWageParentClass();
     protected ArrayList<EmployeeWageParentClass> getEmpList;
 
     public EmployeeWageChildClass(){
@@ -24,17 +23,15 @@ public class EmployeeWageChildClass implements Interface{
 
     public void wagesForWorkingHourAndDays() {
         for (int i = 0; i < getEmpList.size(); i++) {
-//            employeeWageParentClasses[i].setTotalEmpWage(this.wagesForWorkingHourAndDays(employeeWageParentClasses[i]));
-//            System.out.println(employeeWageParentClasses[i]);
             EmployeeWageParentClass employeeWageParentClass = getEmpList.get(i);
             employeeWageParentClass.setTotalEmpWage(this.wagesForWorkingHourAndDays(employeeWageParentClass));
             System.out.println(employeeWageParentClass);
         }
     }
 
+
     protected int wagesForWorkingHourAndDays(EmployeeWageParentClass employeeWageParentClass) {
         int EMP_HRS, TOTAL_WORKING_DAYS = 0, TOTAL_EMP_HRS = 0, TOTAL_SALARY = 0;
-
         while (TOTAL_WORKING_DAYS < employeeWageParentClass.MAX_WORKING_DAYS && TOTAL_EMP_HRS < employeeWageParentClass.MAX_HRS_IN_MONTH) {
             Random num = new Random();
             int randomCheck = num.nextInt(2) + 1;
@@ -43,9 +40,12 @@ public class EmployeeWageChildClass implements Interface{
                 case IS_PART_TIME -> EMP_HRS = 4;
                 default -> EMP_HRS = 0;
             }
+            int getDailyEmpWage = employeeWageParentClass.WAGE_PER_HR * EMP_HRS;
+            System.out.print(getDailyEmpWage+" ");
             TOTAL_EMP_HRS = TOTAL_EMP_HRS + EMP_HRS;
             TOTAL_WORKING_DAYS++;
         }
+        System.out.println();
         TOTAL_SALARY = employeeWageParentClass.WAGE_PER_HR * TOTAL_EMP_HRS;
         return TOTAL_SALARY;
     }
