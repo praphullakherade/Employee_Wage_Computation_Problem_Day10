@@ -1,29 +1,34 @@
 package com.employeewage;
 
+import java.util.ArrayList;
 import java.util.Random;
 
-public class EmployeeWageChildClass implements Interface {
+public class EmployeeWageChildClass implements Interface{
+
 
     //Constant variable
     protected static final int IS_FULL_TIME = 1;
     protected static final int IS_PART_TIME = 2;
 
-    protected int numOfCompany = 0;
-    protected EmployeeWageParentClass[] employeeWageParentClasses;
+    EmployeeWageParentClass p =new EmployeeWageParentClass();
+    protected ArrayList<EmployeeWageParentClass> getEmpList;
 
     public EmployeeWageChildClass(){
-        employeeWageParentClasses= new EmployeeWageParentClass[5];
+        getEmpList =new ArrayList<>();
     }
 
     public void addEmpWage(String company, int WAGE_PER_HR, int MAX_WORKING_DAYS, int MAX_HRS_IN_MONTH) {
-        employeeWageParentClasses[numOfCompany] = new EmployeeWageParentClass(company, WAGE_PER_HR, MAX_WORKING_DAYS, MAX_HRS_IN_MONTH);
-        numOfCompany++;
+        EmployeeWageParentClass employeeWageParentClass = new EmployeeWageParentClass(company, WAGE_PER_HR, MAX_WORKING_DAYS, MAX_HRS_IN_MONTH);
+        getEmpList.add(employeeWageParentClass);
     }
 
     public void wagesForWorkingHourAndDays() {
-        for (int i = 0; i < numOfCompany; i++) {
-            employeeWageParentClasses[i].setTotalEmpWage(this.wagesForWorkingHourAndDays(employeeWageParentClasses[i]));
-            System.out.println(employeeWageParentClasses[i]);
+        for (int i = 0; i < getEmpList.size(); i++) {
+//            employeeWageParentClasses[i].setTotalEmpWage(this.wagesForWorkingHourAndDays(employeeWageParentClasses[i]));
+//            System.out.println(employeeWageParentClasses[i]);
+            EmployeeWageParentClass employeeWageParentClass = getEmpList.get(i);
+            employeeWageParentClass.setTotalEmpWage(this.wagesForWorkingHourAndDays(employeeWageParentClass));
+            System.out.println(employeeWageParentClass);
         }
     }
 
